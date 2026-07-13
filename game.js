@@ -81,7 +81,15 @@ const WORLD_W = W * TILES_PER_LEVEL;
 const LEVELS = [
   { key: 'meadow',         name: 'Đồng cỏ',        groundY: 0.865, obstacles: ['fallen-log', 'puddle', 'thorn-bush', 'tree-stump', 'mushroom-cluster', 'low-fence', 'rounded-boulder', 'stacked-stones'] },
   { key: 'forest',         name: 'Rừng xanh',      groundY: 0.85,  obstacles: ['tree-stump', 'thorn-bush', 'fallen-log', 'mushroom-cluster', 'rounded-boulder', 'thorn-bush', 'stacked-stones'] },
+  { key: 'beach-lagoon',   name: 'Bãi biển',       groundY: 0.83,  obstacles: ['puddle', 'rounded-boulder', 'cloth-barrel', 'stacked-stones', 'low-fence', 'puddle'] },
+  { key: 'candy-hills',    name: 'Đồi kẹo ngọt',   groundY: 0.81,  obstacles: ['mushroom-cluster', 'rounded-boulder', 'cloth-barrel', 'stacked-stones', 'puddle', 'mushroom-cluster'] },
+  { key: 'autumn-grove',   name: 'Rừng thu',       groundY: 0.82,  obstacles: ['fallen-log', 'tree-stump', 'thorn-bush', 'mushroom-cluster', 'stacked-stones', 'thorn-bush'] },
   { key: 'village-sunset', name: 'Làng hoàng hôn', groundY: 0.88,  obstacles: ['traffic-cone', 'wooden-crate', 'road-barrier', 'cloth-barrel', 'low-fence', 'traffic-cone', 'wooden-crate'] },
+  { key: 'cloud-garden',   name: 'Vườn mây',       groundY: 0.835, obstacles: ['stacked-stones', 'low-fence', 'rounded-boulder', 'mushroom-cluster', 'stacked-stones'] },
+  { key: 'rainy-pond',     name: 'Ao mưa',         groundY: 0.84,  obstacles: ['puddle', 'low-fence', 'rounded-boulder', 'puddle', 'thorn-bush', 'puddle'] },
+  { key: 'moonlit-swamp',  name: 'Đầm lầy trăng',  groundY: 0.82,  obstacles: ['puddle', 'fallen-log', 'thorn-bush', 'tree-stump', 'mushroom-cluster', 'thorn-bush'] },
+  { key: 'desert-ruins',   name: 'Phế tích sa mạc', groundY: 0.80, obstacles: ['broken-pillar', 'stacked-stones', 'thorn-bush', 'rounded-boulder', 'wooden-crate', 'broken-pillar'] },
+  { key: 'snow-mountain',  name: 'Núi tuyết',      groundY: 0.83,  obstacles: ['rounded-boulder', 'felt-stalagmite', 'stacked-stones', 'fallen-log', 'crystal-cluster', 'felt-stalagmite'] },
   { key: 'crystal-cave',   name: 'Hang pha lê',    groundY: 0.875, obstacles: ['crystal-cluster', 'felt-stalagmite', 'rounded-boulder', 'mine-cart', 'broken-pillar', 'crystal-cluster', 'stacked-stones'] },
 ];
 
@@ -413,7 +421,7 @@ function winGame(now) {
   gameWon = true;
   setState('victory', now);
   overlayTitleEl.textContent = '🏆 CHIẾN THẮNG!';
-  overlayTextEl.textContent = `Limebo đã vượt qua cả 4 vùng đất! Điểm: ${score} — Nhấn Enter để chơi lại`;
+  overlayTextEl.textContent = `Limebo đã vượt qua cả ${LEVELS.length} vùng đất! Điểm: ${score} — Nhấn Enter để chơi lại`;
   overlayEl.classList.add('show');
 }
 

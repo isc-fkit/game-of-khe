@@ -25,7 +25,7 @@ Trên điện thoại: mở web, xoay ngang — có nút cảm ứng ◀ ▶ / T
 
 ## Gameplay
 
-- **4 màn chơi** theo 4 background: Đồng cỏ → Rừng xanh → Làng hoàng hôn → Hang pha lê. Đi hết mép phải màn để qua màn kế (+50 điểm), hết màn 4 là chiến thắng 🏆.
+- **12 màn chơi**: Đồng cỏ → Rừng xanh → Bãi biển → Đồi kẹo ngọt → Rừng thu → Làng hoàng hôn → Vườn mây → Ao mưa → Đầm lầy trăng → Phế tích sa mạc → Núi tuyết → Hang pha lê. Đi hết mép phải màn để qua màn kế (+50 điểm), hết màn cuối là chiến thắng 🏆.
 - **5 tim**: bụi gai / cụm pha lê / măng đá gây sát thương (kèm knockback + bất tử tạm 1,5s). Hết tim → animation gục ngã & hồi phục.
 - **Vũng nước** làm chậm còn 55% tốc độ (đúng manifest).
 - **Chướng ngại vật rắn** chặn đường — nhảy qua hoặc nhảy đứng lên trên (physics platformer đầy đủ).
