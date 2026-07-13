@@ -148,6 +148,7 @@ let obstacles = [];       // { name, x, def, dead, fade }
 let pulses = [];          // speaker pulse rings { x, y, r, alpha }
 let projectiles = [];     // skill shots { x, y, dir, dist }
 let gameWon = false;
+let overlayHideAt = 0;    // thời điểm ẩn overlay "hết tim"
 
 // Nâng chân nhân vật lên một chút so với baseline vật cản để đứng NGAY TRÊN mặt đường
 const PLAYER_LIFT = 12;
@@ -388,7 +389,11 @@ EMOTES.forEach(([emoji, stateName, label], i) => {
   const btn = document.createElement('button');
   btn.title = label;
   btn.innerHTML = `${emoji}<span class="k">${i < 10 ? String((i + 1) % 10) : '·'}</span>`;
-  btn.addEventListener('click', () => playEmote(stateName, performance.now()));
+  btn.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    playEmote(stateName, performance.now());
+    document.body.classList.remove('emotes-open'); // đóng panel trên mobile
+  });
   bar.appendChild(btn);
 });
 
@@ -419,14 +424,24 @@ const JUMP_V = -1050;
 function update(dt, now) {
   const st = STATES[player.state];
 
+  // Ẩn overlay "hết tim" sau khi hiện đủ lâu
+  if (overlayHideAt && now >= overlayHideAt) {
+    overlayEl.classList.remove('show');
+    overlayHideAt = 0;
+  }
+
   // Finish non-loop states
   if (!st.loop) {
     const elapsed = now - player.stateStart;
     if (elapsed >= st.frames * st.dur && player.state !== 'jumping') {
       if (player.state === 'knockout-recover') {
-        player.hp = player.maxHp;
-        player.invulnUntil = now + 1200;
-        updateHUD();
+        // Hết tim: chơi lại từ đầu (màn 1, 0 điểm)
+        restart(now);
+        overlayTitleEl.textContent = '💀 Hết tim!';
+        overlayTextEl.textContent = 'Chơi lại từ Màn 1...';
+        overlayEl.classList.add('show');
+        overlayHideAt = now + 2200;
+        return;
       }
       if (player.state === 'defend') player.guarding = false;
       setState('idle', now);

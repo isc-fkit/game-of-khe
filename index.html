@@ -15,7 +15,7 @@
     --text: #eef2ff;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  html, body { overscroll-behavior: none; }
+  html, body { overscroll-behavior: none; touch-action: manipulation; }
   body {
     background: radial-gradient(1200px 700px at 50% -10%, #2b3352, #121626 60%, #0c101d);
     background-color: #0c101d;
@@ -125,33 +125,85 @@
   }
   .legend b { color: var(--text); }
 
-  /* ---------- Touch controls ---------- */
+  /* ---------- Touch controls (vòng cung kiểu MOBA, nền trong suốt) ---------- */
   .touch-controls { display: none; }
   .touch-controls .cluster {
     position: fixed;
-    bottom: max(14px, env(safe-area-inset-bottom));
-    display: flex;
-    gap: 12px;
+    bottom: max(10px, env(safe-area-inset-bottom));
     z-index: 20;
   }
-  .touch-controls .cluster.left { left: max(14px, env(safe-area-inset-left)); }
-  .touch-controls .cluster.right { right: max(14px, env(safe-area-inset-right)); }
+  .touch-controls .cluster.left {
+    left: max(12px, env(safe-area-inset-left));
+    display: flex;
+    gap: 10px;
+  }
+  .touch-controls .cluster.right {
+    right: max(10px, env(safe-area-inset-right));
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+  }
   .touch-controls button {
-    width: 62px;
-    height: 62px;
     border-radius: 50%;
-    border: 2px solid rgba(158, 240, 26, .5);
-    background: rgba(29, 34, 51, .55);
-    color: var(--text);
-    font-size: 26px;
+    border: 1.5px solid rgba(255, 255, 255, .4);
+    background: rgba(16, 20, 36, .22);
+    color: rgba(255, 255, 255, .92);
     line-height: 1;
     touch-action: none;
     user-select: none;
     -webkit-user-select: none;
+    backdrop-filter: blur(2px);
+  }
+  .touch-controls button:active { background: rgba(158, 240, 26, .3); border-color: rgba(158, 240, 26, .7); }
+  .touch-controls button.cd { opacity: .3; }
+  .touch-controls .lbl { display: block; font-size: 8px; color: rgba(255,255,255,.75); margin-top: 1px; }
+  /* Di chuyển: 2 nút nhỏ bên trái */
+  .cluster.left button { width: 56px; height: 56px; font-size: 22px; }
+  /* Cụm phải: nút Nhảy to ở góc, các nút nhỏ xếp vòng cung quanh nó */
+  .cluster.right button { position: absolute; pointer-events: auto; }
+  #btnJump   { width: 78px; height: 78px; font-size: 30px; right: 0;     bottom: 0; }
+  #btnAttack { width: 52px; height: 52px; font-size: 20px; right: 96px;  bottom: 4px; }
+  #btnSkill  { width: 52px; height: 52px; font-size: 20px; right: 78px;  bottom: 78px; }
+  #btnDefend { width: 52px; height: 52px; font-size: 20px; right: 4px;   bottom: 96px; }
+
+  /* ---------- Emote trên mobile: nút toggle, panel nằm ngoài vùng thao tác chơi ---------- */
+  #btnEmotes {
+    display: none;
+    position: fixed;
+    top: max(8px, env(safe-area-inset-top));
+    right: max(10px, env(safe-area-inset-right));
+    z-index: 22;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, .4);
+    background: rgba(16, 20, 36, .22);
+    font-size: 20px;
+    touch-action: none;
+    backdrop-filter: blur(2px);
+  }
+  body.touch #btnEmotes { display: block; }
+  body.touch .emotes { display: none; }
+  body.touch.emotes-open .emotes {
+    display: flex;
+    position: fixed;
+    top: calc(max(8px, env(safe-area-inset-top)) + 52px);
+    right: max(10px, env(safe-area-inset-right));
+    left: auto;
+    transform: none;
+    width: auto;
+    max-width: 70vw;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 6px 8px;
+    gap: 6px;
+    z-index: 22;
+    background: rgba(16, 20, 36, .35);
+    border-color: rgba(255, 255, 255, .25);
     backdrop-filter: blur(3px);
   }
-  .touch-controls button:active { background: rgba(158, 240, 26, .35); }
-  .touch-controls button.cd { opacity: .35; }
+  body.touch .emotes button { font-size: 18px; padding: 5px 7px; background: rgba(16,20,36,.2); }
+  body.touch .emotes button .k { display: none; }
   .touch-controls .lbl { display: block; font-size: 9px; color: #cdd6f4; margin-top: 2px; }
 
   /* ---------- Rotate hint (portrait phones) ---------- */
@@ -214,23 +266,6 @@
       border: none;
       box-shadow: none;
     }
-    .emotes {
-      position: fixed;
-      bottom: max(10px, env(safe-area-inset-bottom));
-      left: 50%;
-      transform: translateX(-50%);
-      width: auto;
-      max-width: 38vw;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      padding: 5px 8px;
-      gap: 6px;
-      z-index: 18;
-      background: rgba(29, 34, 51, .7);
-      backdrop-filter: blur(3px);
-    }
-    .emotes button { font-size: 17px; padding: 5px 7px; }
-    .emotes button .k { display: none; }
     #overlay { border-radius: 0; }
   }
 </style>
@@ -262,6 +297,8 @@
     Bụi gai / pha lê gây sát thương! Vũng nước làm chậm.
   </div>
 
+  <button id="btnEmotes" title="Biểu cảm">😊</button>
+
   <div class="touch-controls">
     <div class="cluster left">
       <button id="btnLeft">◀</button>
@@ -285,6 +322,25 @@
     if (('ontouchstart' in window) || navigator.maxTouchPoints > 0) {
       document.body.classList.add('touch');
     }
+    // Bật/tắt panel biểu cảm trên mobile
+    document.getElementById('btnEmotes').addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      document.body.classList.toggle('emotes-open');
+    });
+    // Chặn zoom khi đang chơi: pinch (iOS gesture) + double-tap
+    ['gesturestart', 'gesturechange', 'gestureend'].forEach((ev) => {
+      document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
+    });
+    document.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 1) e.preventDefault();
+    }, { passive: false });
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', (e) => {
+      const t = Date.now();
+      if (t - lastTouchEnd < 350) e.preventDefault();
+      lastTouchEnd = t;
+    }, { passive: false });
+    document.addEventListener('dblclick', (e) => e.preventDefault());
     document.getElementById('btnFull').addEventListener('click', () => {
       const el = document.documentElement;
       if (document.fullscreenElement) document.exitFullscreen();
