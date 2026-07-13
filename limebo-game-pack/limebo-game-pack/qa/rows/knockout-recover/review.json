@@ -1,0 +1,146 @@
+{
+  "ok": true,
+  "frames_root": "/Users/khanhluu/Documents/General/limebo-game-pack/work/knockout-recover/frames",
+  "states": [
+    "failed"
+  ],
+  "errors": [],
+  "warnings": [
+    "failed used extraction method stable-slots; component extraction is preferred"
+  ],
+  "rows": [
+    {
+      "state": "failed",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "stable-slots",
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "failed used extraction method stable-slots; component extraction is preferred"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/knockout-recover/frames/failed/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14255,
+          "bbox": [
+            29,
+            15,
+            162,
+            194
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 260
+        },
+        {
+          "index": 1,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/knockout-recover/frames/failed/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 12349,
+          "bbox": [
+            44,
+            38,
+            148,
+            195
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 184
+        },
+        {
+          "index": 2,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/knockout-recover/frames/failed/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 10425,
+          "bbox": [
+            33,
+            64,
+            158,
+            195
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 143
+        },
+        {
+          "index": 3,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/knockout-recover/frames/failed/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 10251,
+          "bbox": [
+            15,
+            107,
+            177,
+            197
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 156
+        },
+        {
+          "index": 4,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/knockout-recover/frames/failed/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 9279,
+          "bbox": [
+            25,
+            109,
+            167,
+            198
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 102
+        },
+        {
+          "index": 5,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/knockout-recover/frames/failed/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 10769,
+          "bbox": [
+            34,
+            68,
+            157,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 193
+        },
+        {
+          "index": 6,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/knockout-recover/frames/failed/06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 12730,
+          "bbox": [
+            42,
+            28,
+            149,
+            195
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 209
+        },
+        {
+          "index": 7,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/knockout-recover/frames/failed/07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14556,
+          "bbox": [
+            42,
+            5,
+            150,
+            194
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 262
+        }
+      ]
+    }
+  ]
+}

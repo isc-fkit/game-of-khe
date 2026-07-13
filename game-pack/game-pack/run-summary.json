@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "character": "limebo",
+  "packFormat": "limebo-game-pack-v1",
+  "newStateCount": 18,
+  "pages": 2,
+  "pageDimensions": { "width": 1536, "height": 1872 },
+  "cellDimensions": { "width": 192, "height": 208 },
+  "technicalValidation": "pass",
+  "visualValidation": "pass",
+  "baseCodexPetModified": false
+}

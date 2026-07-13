@@ -1,0 +1,42 @@
+{
+  "format": "limebo-game-pack-v1",
+  "character": "limebo",
+  "displayName": "Limebo",
+  "cellSize": { "width": 192, "height": 208 },
+  "columns": 8,
+  "rowsPerPage": 9,
+  "coordinateOrigin": "top-left",
+  "sourceRectFormula": {
+    "x": "frameIndex * 192",
+    "y": "row * 208",
+    "width": 192,
+    "height": 208
+  },
+  "pivot": { "normalizedX": 0.5, "normalizedY": 0.94 },
+  "defaultCollisionBox": { "x": 48, "y": 42, "width": 96, "height": 154 },
+  "basePetAtlas": "../spritesheet.webp",
+  "pages": {
+    "actions": { "image": "limebo-actions.webp", "width": 1536, "height": 1872 },
+    "emotes": { "image": "limebo-emotes.webp", "width": 1536, "height": 1872 }
+  },
+  "states": {
+    "combat-ready": { "page": "actions", "row": 0, "frames": 6, "frameDurationMs": 120, "loop": true, "category": "combat", "movementLock": false },
+    "attack-right": { "page": "actions", "row": 1, "frames": 8, "frameDurationMs": 80, "loop": false, "category": "combat", "movementLock": true, "events": [{ "frame": 3, "type": "hit", "direction": "right" }] },
+    "attack-left": { "page": "actions", "row": 2, "frames": 8, "frameDurationMs": 80, "loop": false, "category": "combat", "movementLock": true, "events": [{ "frame": 3, "type": "hit", "direction": "left" }] },
+    "defend": { "page": "actions", "row": 3, "frames": 4, "frameDurationMs": 110, "loop": false, "category": "combat", "movementLock": true, "events": [{ "frame": 1, "type": "guard-on" }, { "frame": 3, "type": "guard-off" }] },
+    "hurt": { "page": "actions", "row": 4, "frames": 5, "frameDurationMs": 100, "loop": false, "category": "reaction", "movementLock": true, "events": [{ "frame": 0, "type": "damaged" }] },
+    "knockout-recover": { "page": "actions", "row": 5, "frames": 8, "frameDurationMs": 140, "loop": false, "category": "reaction", "movementLock": true, "events": [{ "frame": 2, "type": "knocked-down" }, { "frame": 6, "type": "recovered" }] },
+    "victory": { "page": "actions", "row": 6, "frames": 6, "frameDurationMs": 120, "loop": true, "category": "celebration", "movementLock": true },
+    "dance": { "page": "actions", "row": 7, "frames": 6, "frameDurationMs": 100, "loop": true, "category": "celebration", "movementLock": true },
+    "sleep": { "page": "actions", "row": 8, "frames": 6, "frameDurationMs": 160, "loop": true, "category": "ambient", "movementLock": true },
+    "happy": { "page": "emotes", "row": 0, "frames": 6, "frameDurationMs": 120, "loop": true, "category": "emotion", "movementLock": false },
+    "frightened": { "page": "emotes", "row": 1, "frames": 8, "frameDurationMs": 100, "loop": true, "category": "emotion", "movementLock": false },
+    "angry": { "page": "emotes", "row": 2, "frames": 8, "frameDurationMs": 100, "loop": true, "category": "emotion", "movementLock": false },
+    "surprised": { "page": "emotes", "row": 3, "frames": 4, "frameDurationMs": 120, "loop": false, "category": "emotion", "movementLock": false },
+    "dizzy": { "page": "emotes", "row": 4, "frames": 5, "frameDurationMs": 130, "loop": true, "category": "emotion", "movementLock": true },
+    "special-speaker": { "page": "emotes", "row": 5, "frames": 8, "frameDurationMs": 90, "loop": false, "category": "special", "movementLock": true, "events": [{ "frame": 3, "type": "speaker-pulse" }] },
+    "sad": { "page": "emotes", "row": 6, "frames": 6, "frameDurationMs": 140, "loop": true, "category": "emotion", "movementLock": false },
+    "taunt": { "page": "emotes", "row": 7, "frames": 6, "frameDurationMs": 110, "loop": true, "category": "combat", "movementLock": false },
+    "laugh": { "page": "emotes", "row": 8, "frames": 6, "frameDurationMs": 100, "loop": true, "category": "emotion", "movementLock": false }
+  }
+}

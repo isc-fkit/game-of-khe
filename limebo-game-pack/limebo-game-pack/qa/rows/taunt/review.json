@@ -1,0 +1,116 @@
+{
+  "ok": true,
+  "frames_root": "/Users/khanhluu/Documents/General/limebo-game-pack/work/taunt/frames",
+  "states": [
+    "running"
+  ],
+  "errors": [],
+  "warnings": [
+    "running used extraction method stable-slots; component extraction is preferred"
+  ],
+  "rows": [
+    {
+      "state": "running",
+      "expected_frames": 6,
+      "actual_frames": 6,
+      "extraction_method": "stable-slots",
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "running used extraction method stable-slots; component extraction is preferred"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/taunt/frames/running/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16671,
+          "bbox": [
+            36,
+            7,
+            155,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 163
+        },
+        {
+          "index": 1,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/taunt/frames/running/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 17383,
+          "bbox": [
+            29,
+            6,
+            162,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 171
+        },
+        {
+          "index": 2,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/taunt/frames/running/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16718,
+          "bbox": [
+            32,
+            6,
+            159,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 159
+        },
+        {
+          "index": 3,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/taunt/frames/running/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15870,
+          "bbox": [
+            39,
+            5,
+            152,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 139
+        },
+        {
+          "index": 4,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/taunt/frames/running/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 17017,
+          "bbox": [
+            32,
+            8,
+            159,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 156
+        },
+        {
+          "index": 5,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/taunt/frames/running/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16658,
+          "bbox": [
+            36,
+            7,
+            155,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 169
+        }
+      ]
+    }
+  ]
+}

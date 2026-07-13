@@ -1,0 +1,146 @@
+{
+  "ok": true,
+  "frames_root": "/Users/khanhluu/Documents/General/limebo-game-pack/work/angry/frames",
+  "states": [
+    "running-left"
+  ],
+  "errors": [],
+  "warnings": [
+    "running-left used extraction method stable-slots; component extraction is preferred"
+  ],
+  "rows": [
+    {
+      "state": "running-left",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "stable-slots",
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "running-left used extraction method stable-slots; component extraction is preferred"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/angry/frames/running-left/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16937,
+          "bbox": [
+            38,
+            7,
+            153,
+            201
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 248
+        },
+        {
+          "index": 1,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/angry/frames/running-left/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16739,
+          "bbox": [
+            39,
+            6,
+            152,
+            201
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 237
+        },
+        {
+          "index": 2,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/angry/frames/running-left/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16841,
+          "bbox": [
+            38,
+            10,
+            153,
+            201
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 229
+        },
+        {
+          "index": 3,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/angry/frames/running-left/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16757,
+          "bbox": [
+            39,
+            10,
+            153,
+            201
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 254
+        },
+        {
+          "index": 4,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/angry/frames/running-left/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15836,
+          "bbox": [
+            32,
+            33,
+            160,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 217
+        },
+        {
+          "index": 5,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/angry/frames/running-left/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16859,
+          "bbox": [
+            38,
+            9,
+            153,
+            201
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 238
+        },
+        {
+          "index": 6,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/angry/frames/running-left/06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16805,
+          "bbox": [
+            39,
+            6,
+            153,
+            201
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 218
+        },
+        {
+          "index": 7,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/angry/frames/running-left/07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16957,
+          "bbox": [
+            39,
+            5,
+            153,
+            201
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 263
+        }
+      ]
+    }
+  ]
+}

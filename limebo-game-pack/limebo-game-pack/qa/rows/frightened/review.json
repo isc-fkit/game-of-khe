@@ -1,0 +1,146 @@
+{
+  "ok": true,
+  "frames_root": "/Users/khanhluu/Documents/General/limebo-game-pack/work/frightened/frames",
+  "states": [
+    "running-right"
+  ],
+  "errors": [],
+  "warnings": [
+    "running-right used extraction method stable-slots; component extraction is preferred"
+  ],
+  "rows": [
+    {
+      "state": "running-right",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "stable-slots",
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "running-right used extraction method stable-slots; component extraction is preferred"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/frightened/frames/running-right/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14913,
+          "bbox": [
+            41,
+            5,
+            150,
+            195
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 206
+        },
+        {
+          "index": 1,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/frightened/frames/running-right/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13602,
+          "bbox": [
+            45,
+            8,
+            146,
+            195
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 143
+        },
+        {
+          "index": 2,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/frightened/frames/running-right/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13034,
+          "bbox": [
+            42,
+            36,
+            148,
+            199
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 135
+        },
+        {
+          "index": 3,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/frightened/frames/running-right/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 11495,
+          "bbox": [
+            43,
+            62,
+            148,
+            202
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 103
+        },
+        {
+          "index": 4,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/frightened/frames/running-right/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 11705,
+          "bbox": [
+            41,
+            55,
+            150,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 119
+        },
+        {
+          "index": 5,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/frightened/frames/running-right/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 12906,
+          "bbox": [
+            41,
+            32,
+            150,
+            198
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 150
+        },
+        {
+          "index": 6,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/frightened/frames/running-right/06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13741,
+          "bbox": [
+            46,
+            10,
+            145,
+            195
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 158
+        },
+        {
+          "index": 7,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/frightened/frames/running-right/07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14453,
+          "bbox": [
+            41,
+            6,
+            150,
+            195
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 202
+        }
+      ]
+    }
+  ]
+}

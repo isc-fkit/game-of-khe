@@ -1,0 +1,146 @@
+{
+  "ok": true,
+  "frames_root": "/Users/khanhluu/Documents/General/limebo-game-pack/work/attack-left/frames",
+  "states": [
+    "running-left"
+  ],
+  "errors": [],
+  "warnings": [
+    "running-left used extraction method stable-slots; component extraction is preferred"
+  ],
+  "rows": [
+    {
+      "state": "running-left",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "stable-slots",
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "running-left used extraction method stable-slots; component extraction is preferred"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/attack-left/frames/running-left/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15890,
+          "bbox": [
+            39,
+            5,
+            151,
+            201
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 240
+        },
+        {
+          "index": 1,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/attack-left/frames/running-left/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14593,
+          "bbox": [
+            39,
+            16,
+            152,
+            201
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 167
+        },
+        {
+          "index": 2,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/attack-left/frames/running-left/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15391,
+          "bbox": [
+            35,
+            6,
+            156,
+            200
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 228
+        },
+        {
+          "index": 3,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/attack-left/frames/running-left/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14730,
+          "bbox": [
+            27,
+            7,
+            164,
+            200
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 222
+        },
+        {
+          "index": 4,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/attack-left/frames/running-left/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14778,
+          "bbox": [
+            35,
+            7,
+            155,
+            201
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 221
+        },
+        {
+          "index": 5,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/attack-left/frames/running-left/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14441,
+          "bbox": [
+            37,
+            9,
+            154,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 232
+        },
+        {
+          "index": 6,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/attack-left/frames/running-left/06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14967,
+          "bbox": [
+            40,
+            14,
+            151,
+            201
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 216
+        },
+        {
+          "index": 7,
+          "file": "/Users/khanhluu/Documents/General/limebo-game-pack/work/attack-left/frames/running-left/07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15619,
+          "bbox": [
+            41,
+            8,
+            150,
+            202
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 250
+        }
+      ]
+    }
+  ]
+}

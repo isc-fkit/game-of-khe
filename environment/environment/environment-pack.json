@@ -1,0 +1,44 @@
+{
+  "format": "limebo-environment-pack-v1",
+  "character": "limebo",
+  "style": "handcrafted-plush-diorama",
+  "backgroundSize": { "width": 1920, "height": 1080 },
+  "obstacleCellSize": { "width": 512, "height": 512 },
+  "obstacleAtlas": {
+    "image": "obstacles/obstacles-atlas.webp",
+    "columns": 4,
+    "rows": 4,
+    "width": 2048,
+    "height": 2048,
+    "sourceRectFormula": {
+      "x": "column * 512",
+      "y": "row * 512",
+      "width": 512,
+      "height": 512
+    }
+  },
+  "backgrounds": {
+    "meadow": { "image": "backgrounds/meadow.webp", "groundY": 0.755, "recommendedObstacles": ["fallen-log", "rounded-boulder", "thorn-bush", "tree-stump", "puddle", "mushroom-cluster", "stacked-stones", "low-fence"] },
+    "forest": { "image": "backgrounds/forest.webp", "groundY": 0.73, "recommendedObstacles": ["fallen-log", "rounded-boulder", "thorn-bush", "tree-stump", "mushroom-cluster", "stacked-stones"] },
+    "village-sunset": { "image": "backgrounds/village-sunset.webp", "groundY": 0.675, "recommendedObstacles": ["wooden-crate", "traffic-cone", "road-barrier", "cloth-barrel", "low-fence"] },
+    "crystal-cave": { "image": "backgrounds/crystal-cave.webp", "groundY": 0.71, "recommendedObstacles": ["crystal-cluster", "felt-stalagmite", "mine-cart", "broken-pillar", "rounded-boulder", "stacked-stones"] }
+  },
+  "obstacles": {
+    "fallen-log": { "image": "obstacles/fallen-log.webp", "atlasIndex": 0, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [110, 340, 292, 140] },
+    "rounded-boulder": { "image": "obstacles/rounded-boulder.webp", "atlasIndex": 1, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [130, 280, 252, 200] },
+    "thorn-bush": { "image": "obstacles/thorn-bush.webp", "atlasIndex": 2, "kind": "damage", "damage": 1, "pivot": [0.5, 0.9375], "collisionBox": [115, 290, 282, 190] },
+    "tree-stump": { "image": "obstacles/tree-stump.webp", "atlasIndex": 3, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [120, 330, 272, 150] },
+    "puddle": { "image": "obstacles/puddle.webp", "atlasIndex": 4, "kind": "slow-zone", "speedMultiplier": 0.55, "pivot": [0.5, 0.9375], "collisionBox": [90, 400, 332, 70] },
+    "mushroom-cluster": { "image": "obstacles/mushroom-cluster.webp", "atlasIndex": 5, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [145, 300, 222, 180] },
+    "stacked-stones": { "image": "obstacles/stacked-stones.webp", "atlasIndex": 6, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [150, 300, 212, 180] },
+    "low-fence": { "image": "obstacles/low-fence.webp", "atlasIndex": 7, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [100, 345, 312, 135] },
+    "wooden-crate": { "image": "obstacles/wooden-crate.webp", "atlasIndex": 8, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [105, 180, 302, 300] },
+    "traffic-cone": { "image": "obstacles/traffic-cone.webp", "atlasIndex": 9, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [140, 220, 232, 260] },
+    "road-barrier": { "image": "obstacles/road-barrier.webp", "atlasIndex": 10, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [95, 280, 322, 200] },
+    "cloth-barrel": { "image": "obstacles/cloth-barrel.webp", "atlasIndex": 11, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [125, 200, 262, 280] },
+    "crystal-cluster": { "image": "obstacles/crystal-cluster.webp", "atlasIndex": 12, "kind": "damage", "damage": 1, "pivot": [0.5, 0.9375], "collisionBox": [135, 250, 242, 230] },
+    "felt-stalagmite": { "image": "obstacles/felt-stalagmite.webp", "atlasIndex": 13, "kind": "damage", "damage": 1, "pivot": [0.5, 0.9375], "collisionBox": [150, 200, 212, 280] },
+    "mine-cart": { "image": "obstacles/mine-cart.webp", "atlasIndex": 14, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [100, 220, 312, 260] },
+    "broken-pillar": { "image": "obstacles/broken-pillar.webp", "atlasIndex": 15, "kind": "solid", "pivot": [0.5, 0.9375], "collisionBox": [145, 220, 222, 260] }
+  }
+}

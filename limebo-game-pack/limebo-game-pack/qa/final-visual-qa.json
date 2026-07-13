@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "visual_qa": "pass",
+  "repair_states": [],
+  "note": "All 18 states preserve Limebo's identity, convey the intended actions and emotions clearly, maintain stable framing and cadence without cropping or detached effects, and show clean transparency with no visible magenta fringe.",
+  "artifacts": [
+    "actions-contact-sheet.png",
+    "emotes-contact-sheet.png",
+    "actions-previews",
+    "emotes-previews"
+  ]
+}

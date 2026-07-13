@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game of Khe — Limebo Adventure</title>
+<style>
+  :root {
+    --panel: #1d2233;
+    --panel-2: #262c42;
+    --accent: #9ef01a;
+    --text: #eef2ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(1200px 700px at 50% -10%, #2b3352, #121626 60%, #0c101d);
+    background-color: #0c101d;
+    color: var(--text);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 14px;
+    gap: 10px;
+  }
+  header {
+    width: min(1280px, 96vw);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  h1 {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+  h1 span { color: var(--accent); }
+  .hud {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--panel);
+    border: 1px solid #38405e;
+    border-radius: 12px;
+    padding: 8px 14px;
+    font-size: 15px;
+  }
+  #hearts { font-size: 18px; letter-spacing: 2px; }
+  #score { color: var(--accent); font-weight: 700; }
+  #levelName { font-weight: 600; }
+  .stage-wrap {
+    position: relative;
+    width: min(1280px, 96vw);
+  }
+  canvas {
+    width: 100%;
+    display: block;
+    border-radius: 14px;
+    border: 1px solid #38405e;
+    box-shadow: 0 18px 50px rgba(0,0,0,.5);
+    background: #000;
+  }
+  #overlay {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(8, 10, 20, .55);
+    border-radius: 14px;
+    text-align: center;
+  }
+  #overlay.show { display: flex; }
+  #overlay .big { font-size: 44px; font-weight: 800; text-shadow: 0 4px 18px rgba(0,0,0,.6); }
+  #overlay .small { font-size: 16px; opacity: .9; }
+  .emotes {
+    width: min(1280px, 96vw);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    background: var(--panel);
+    border: 1px solid #38405e;
+    border-radius: 14px;
+    padding: 10px;
+  }
+  .emotes button {
+    font-size: 22px;
+    line-height: 1;
+    background: var(--panel-2);
+    border: 1px solid #3c456b;
+    border-radius: 10px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: transform .08s ease, background .15s ease;
+  }
+  .emotes button:hover { background: #333c5e; transform: translateY(-2px); }
+  .emotes button:active { transform: scale(.94); }
+  .emotes button .k {
+    display: block;
+    font-size: 10px;
+    color: #aab3d6;
+    margin-top: 3px;
+  }
+  .legend {
+    width: min(1280px, 96vw);
+    font-size: 13px;
+    color: #aab3d6;
+    text-align: center;
+  }
+  .legend b { color: var(--text); }
+</style>
+</head>
+<body>
+  <header>
+    <h1>🎮 Game of <span>Khe</span> — Limebo Adventure</h1>
+    <div class="hud">
+      <span id="hearts">❤️❤️❤️❤️❤️</span>
+      <span>Điểm: <span id="score">0</span></span>
+      <span id="levelName">Đồng cỏ</span>
+    </div>
+  </header>
+
+  <div class="stage-wrap">
+    <canvas id="game" width="1280" height="720"></canvas>
+    <div id="overlay">
+      <div class="big" id="overlayTitle">🏆 CHIẾN THẮNG!</div>
+      <div class="small" id="overlayText">Nhấn Enter để chơi lại</div>
+    </div>
+  </div>
+
+  <div class="emotes" id="emoteBar"></div>
+
+  <div class="legend">
+    <b>← →</b> / <b>A D</b> di chuyển · <b>Space/↑</b> nhảy · <b>J</b> tấn công · <b>K</b> phòng thủ ·
+    <b>1–9, 0</b> emote nhanh · Bụi gai / pha lê gây sát thương — hãy nhảy qua hoặc tấn công để phá! Vũng nước làm chậm.
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
