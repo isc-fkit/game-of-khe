@@ -72,39 +72,32 @@ const OB_CELL = 512;
 const OB_PIVOT_Y = 0.9375; // baseline at 480px inside each 512 cell
 const OB_SCALE = 0.55;
 
-// World = 3 background tiles (bg 1920x1080 scaled to 720 tall = exactly 1280 wide)
-const WORLD_W = W * 3;
+// World = nhiều tile background lặp lại (bg 1920x1080 scale còn 720 cao = đúng 1280 rộng)
+const TILES_PER_LEVEL = 6;
+const WORLD_W = W * TILES_PER_LEVEL;
 
+// groundY: baseline chân nhân vật/vật cản nằm NGAY TRÊN mặt đường của mỗi background
 const LEVELS = [
-  {
-    key: 'meadow', name: 'Đồng cỏ', groundY: 0.755,
-    obstacles: [
-      ['fallen-log', 620], ['puddle', 1050], ['thorn-bush', 1500], ['tree-stump', 1900],
-      ['mushroom-cluster', 2300], ['low-fence', 2700], ['rounded-boulder', 3100], ['stacked-stones', 3480],
-    ],
-  },
-  {
-    key: 'forest', name: 'Rừng xanh', groundY: 0.73,
-    obstacles: [
-      ['tree-stump', 600], ['thorn-bush', 1000], ['fallen-log', 1450], ['mushroom-cluster', 1850],
-      ['rounded-boulder', 2350], ['thorn-bush', 2750], ['stacked-stones', 3200],
-    ],
-  },
-  {
-    key: 'village-sunset', name: 'Làng hoàng hôn', groundY: 0.675,
-    obstacles: [
-      ['traffic-cone', 600], ['wooden-crate', 1000], ['road-barrier', 1500], ['cloth-barrel', 2000],
-      ['low-fence', 2450], ['traffic-cone', 2900], ['wooden-crate', 3300],
-    ],
-  },
-  {
-    key: 'crystal-cave', name: 'Hang pha lê', groundY: 0.71,
-    obstacles: [
-      ['crystal-cluster', 650], ['felt-stalagmite', 1100], ['rounded-boulder', 1550], ['mine-cart', 2050],
-      ['broken-pillar', 2500], ['crystal-cluster', 2950], ['stacked-stones', 3400],
-    ],
-  },
+  { key: 'meadow',         name: 'Đồng cỏ',        groundY: 0.865, obstacles: ['fallen-log', 'puddle', 'thorn-bush', 'tree-stump', 'mushroom-cluster', 'low-fence', 'rounded-boulder', 'stacked-stones'] },
+  { key: 'forest',         name: 'Rừng xanh',      groundY: 0.85,  obstacles: ['tree-stump', 'thorn-bush', 'fallen-log', 'mushroom-cluster', 'rounded-boulder', 'thorn-bush', 'stacked-stones'] },
+  { key: 'village-sunset', name: 'Làng hoàng hôn', groundY: 0.88,  obstacles: ['traffic-cone', 'wooden-crate', 'road-barrier', 'cloth-barrel', 'low-fence', 'traffic-cone', 'wooden-crate'] },
+  { key: 'crystal-cave',   name: 'Hang pha lê',    groundY: 0.875, obstacles: ['crystal-cluster', 'felt-stalagmite', 'rounded-boulder', 'mine-cart', 'broken-pillar', 'crystal-cluster', 'stacked-stones'] },
 ];
+
+// Rải vật cản dọc thế giới dài: lặp danh sách đề xuất với khoảng cách ngẫu nhiên (seed cố định theo màn)
+function buildObstacles(lv, seed) {
+  let s = (seed * 9973 + 7) >>> 0;
+  const rng = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
+  const out = [];
+  let x = 700, i = 0;
+  while (x < WORLD_W - 500) {
+    const name = lv.obstacles[i % lv.obstacles.length];
+    out.push({ name, x: Math.round(x), def: OBSTACLE_DEFS[name], dead: false, fade: 1 });
+    x += 500 + rng() * 450;
+    i++;
+  }
+  return out;
+}
 
 /* ---------- Emote bar ---------- */
 const EMOTES = [
@@ -177,7 +170,7 @@ function setState(name, now) {
 function loadLevel(i, now) {
   levelIndex = (i + LEVELS.length) % LEVELS.length;
   const lv = LEVELS[levelIndex];
-  obstacles = lv.obstacles.map(([name, x]) => ({ name, x, def: OBSTACLE_DEFS[name], dead: false, fade: 1 }));
+  obstacles = buildObstacles(lv, levelIndex);
   levelNameEl.textContent = `Màn ${levelIndex + 1}: ${lv.name}`;
   player.guarding = false;
   player.footY = groundLine();
@@ -267,6 +260,19 @@ function playEmote(stateName, now) {
   player.emoteUntil = STATES[stateName].loop ? now + EMOTE_LOOP_MS : Infinity;
 }
 
+function tryAttack(now) {
+  const cur = STATES[player.state];
+  if (cur.lock && !isEmote(player.state)) return;
+  if (!player.grounded) return;
+  setState(player.facing >= 0 ? 'attack-right' : 'attack-left', now);
+}
+function tryDefend(now) {
+  const cur = STATES[player.state];
+  if (cur.lock && !isEmote(player.state)) return;
+  if (!player.grounded) return;
+  setState('defend', now);
+}
+
 window.addEventListener('keydown', (e) => {
   if (['ArrowLeft', 'ArrowRight', 'ArrowUp', ' '].includes(e.key)) e.preventDefault();
   keys[e.key.toLowerCase()] = true;
@@ -277,19 +283,46 @@ window.addEventListener('keydown', (e) => {
     return;
   }
 
-  const cur = STATES[player.state];
-  const hardLocked = cur.lock && !isEmote(player.state); // emotes are interruptible
-
-  if ((e.key === 'j' || e.key === 'J') && !hardLocked && player.grounded) {
-    setState(player.facing >= 0 ? 'attack-right' : 'attack-left', now);
-  }
-  if ((e.key === 'k' || e.key === 'K') && !hardLocked && player.grounded) {
-    setState('defend', now);
-  }
+  if (e.key === 'j' || e.key === 'J') tryAttack(now);
+  if (e.key === 'k' || e.key === 'K') tryDefend(now);
   const di = '1234567890'.indexOf(e.key);
   if (di >= 0 && EMOTES[di]) playEmote(EMOTES[di][1], now);
 });
 window.addEventListener('keyup', (e) => { keys[e.key.toLowerCase()] = false; });
+// Tránh kẹt phím khi tab/cửa sổ mất focus giữa lúc đang giữ phím
+window.addEventListener('blur', () => { for (const k in keys) keys[k] = false; });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) for (const k in keys) keys[k] = false;
+});
+
+/* ---------- Touch controls (mobile) ---------- */
+function bindHoldButton(id, key) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const press = (e) => { e.preventDefault(); keys[key] = true; };
+  const release = (e) => { e.preventDefault(); keys[key] = false; };
+  el.addEventListener('pointerdown', press);
+  el.addEventListener('pointerup', release);
+  el.addEventListener('pointercancel', release);
+  el.addEventListener('pointerleave', release);
+}
+function bindTapButton(id, fn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    const now = performance.now();
+    if (gameWon) { restart(now); return; }
+    fn(now);
+  });
+}
+bindHoldButton('btnLeft', 'arrowleft');
+bindHoldButton('btnRight', 'arrowright');
+bindHoldButton('btnJump', ' ');
+bindTapButton('btnAttack', tryAttack);
+bindTapButton('btnDefend', tryDefend);
+// Chạm vào canvas khi thắng cũng chơi lại được
+canvas.addEventListener('pointerdown', () => { if (gameWon) restart(performance.now()); });
 
 /* ---------- Emote bar UI ---------- */
 const bar = document.getElementById('emoteBar');
@@ -465,7 +498,8 @@ function render(now) {
   const camX = Math.max(0, Math.min(WORLD_W - W, player.x - W / 2));
 
   const bg = IMAGES['bg:' + lv.key];
-  for (let i = 0; i < 3; i++) ctx.drawImage(bg, i * W - camX, 0, W, H);
+  const firstTile = Math.floor(camX / W);
+  for (let i = firstTile; i <= firstTile + 1; i++) ctx.drawImage(bg, i * W - camX, 0, W, H);
 
   // Obstacles
   const obSize = OB_CELL * OB_SCALE;
