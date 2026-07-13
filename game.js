@@ -37,11 +37,12 @@ const ATLAS_STATES = {
   'laugh':            { page: 'emotes',  row: 8, frames: 6, dur: 100, loop: true,  lock: false },
 };
 
-// Movement states (rebuilt from the QA preview GIFs → assets/limebo-movement.png)
+// Movement states: chạy trái/phải lấy trực tiếp từ hàng 2 & 3 của base pet atlas
+// (assets/spritesheet.webp, 8x11 grid); các state còn lại từ assets/limebo-movement.png
 const MOVE_STATES = {
   'idle':          { page: 'movement', row: 0, frames: 6, dur: 183, loop: true,  lock: false },
-  'running-right': { page: 'movement', row: 1, frames: 8, dur: 110, loop: true,  lock: false },
-  'running-left':  { page: 'movement', row: 2, frames: 8, dur: 110, loop: true,  lock: false },
+  'running-right': { page: 'pet',      row: 1, frames: 8, dur: 100, loop: true,  lock: false },
+  'running-left':  { page: 'pet',      row: 2, frames: 8, dur: 100, loop: true,  lock: false },
   'jumping':       { page: 'movement', row: 3, frames: 5, dur: 168, loop: false, lock: false },
   'waving':        { page: 'movement', row: 4, frames: 4, dur: 175, loop: true,  lock: false },
   'waiting':       { page: 'movement', row: 5, frames: 6, dur: 168, loop: true,  lock: false },
@@ -134,6 +135,7 @@ const loadJobs = [
   loadImage('actions', 'assets/limebo-actions.webp'),
   loadImage('emotes', 'assets/limebo-emotes.webp'),
   loadImage('movement', 'assets/limebo-movement.png'),
+  loadImage('pet', 'assets/spritesheet.webp'),
 ];
 for (const lv of LEVELS) loadJobs.push(loadImage('bg:' + lv.key, `assets/backgrounds/${lv.key}.webp`));
 for (const name of Object.keys(OBSTACLE_DEFS)) loadJobs.push(loadImage('ob:' + name, `assets/obstacles/${name}.webp`));

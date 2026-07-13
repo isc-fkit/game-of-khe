@@ -34,7 +34,7 @@ Trên điện thoại: mở web, xoay ngang — có nút cảm ứng ◀ ▶ / T
 
 - `index.html` — giao diện, HUD (tim/điểm/tên màn), thanh emote.
 - `game.js` — engine: state machine animation theo `game-pack.json` (18 state, frame timing, animation events `hit`/`guard-on`/`speaker-pulse`…), vật lý, va chạm AABB theo collision box của manifest.
-- `assets/` — 2 atlas hành động/emote (8×9, cell 192×208, pivot 0.5/0.94), spritesheet di chuyển (ghép từ GIF preview: idle, chạy trái/phải, nhảy, vẫy tay, chờ), 4 background 1920×1080, 16 chướng ngại vật 512×512.
+- `assets/` — 2 atlas hành động/emote (8×9, cell 192×208, pivot 0.5/0.94), base pet atlas `spritesheet.webp` (8×11 — hàng 2/3 dùng cho chạy phải/trái), spritesheet di chuyển ghép từ GIF preview (idle, nhảy, vẫy tay, chờ), 4 background 1920×1080, 16 chướng ngại vật 512×512.
 - `limebo-game-pack/`, `game-pack/`, `environment/` — pack tài nguyên gốc kèm manifest & tài liệu.
 
 ## Nguồn tài nguyên
