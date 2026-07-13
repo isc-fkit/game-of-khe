@@ -110,12 +110,23 @@ const EMOTES = [
 
 /* ---------- Asset loading ---------- */
 const IMAGES = {};
-function loadImage(key, src) {
+// Thử lại tối đa 3 lần (mạng/CDN chập chờn khi vừa deploy GitHub Pages);
+// ảnh vật cản hỏng hẳn thì bỏ qua thay vì chặn cả game.
+function loadImage(key, src, attempt = 1) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => { IMAGES[key] = img; resolve(); };
-    img.onerror = () => reject(new Error('Không tải được ' + src));
-    img.src = src;
+    img.onerror = () => {
+      if (attempt < 3) {
+        setTimeout(() => loadImage(key, src, attempt + 1).then(resolve, reject), 400 * attempt);
+      } else if (key.startsWith('ob:')) {
+        console.warn('Bỏ qua vật cản thiếu ảnh: ' + src);
+        resolve();
+      } else {
+        reject(new Error('Không tải được ' + src));
+      }
+    };
+    img.src = src + (attempt > 1 ? '?retry=' + attempt : '');
   });
 }
 
@@ -133,13 +144,22 @@ let score = 0;
 let levelIndex = 0;
 let obstacles = [];       // { name, x, def, dead, fade }
 let pulses = [];          // speaker pulse rings { x, y, r, alpha }
+let projectiles = [];     // skill shots { x, y, dir, dist }
 let gameWon = false;
+
+// Nâng chân nhân vật lên một chút so với baseline vật cản để đứng NGAY TRÊN mặt đường
+const PLAYER_LIFT = 12;
+const MAX_JUMPS = 2;          // double jump
+const SKILL_COOLDOWN = 2500;  // ms
+const SKILL_SPEED = 720;      // px/s
+const SKILL_RANGE = 950;      // px
 
 const player = {
   x: 120,
   footY: 0,          // absolute foot position (world y)
   vy: 0,
   grounded: true,
+  jumpsUsed: 0,
   facing: 1,
   hp: 5, maxHp: 5,
   invulnUntil: 0,
@@ -148,6 +168,8 @@ const player = {
   state: 'idle',
   stateStart: 0,
   emoteUntil: 0,
+  castPending: false,
+  skillReadyAt: 0,
   eventsFired: new Set(),
 };
 
@@ -159,6 +181,7 @@ const overlayTitleEl = document.getElementById('overlayTitle');
 const overlayTextEl = document.getElementById('overlayText');
 
 function groundLine() { return LEVELS[levelIndex].groundY * H; }
+function playerGround() { return groundLine() - PLAYER_LIFT; }
 
 function setState(name, now) {
   if (player.state === name) return;
@@ -170,12 +193,15 @@ function setState(name, now) {
 function loadLevel(i, now) {
   levelIndex = (i + LEVELS.length) % LEVELS.length;
   const lv = LEVELS[levelIndex];
-  obstacles = buildObstacles(lv, levelIndex);
+  obstacles = buildObstacles(lv, levelIndex).filter((ob) => IMAGES['ob:' + ob.name]);
+  projectiles = [];
   levelNameEl.textContent = `Màn ${levelIndex + 1}: ${lv.name}`;
   player.guarding = false;
-  player.footY = groundLine();
+  player.castPending = false;
+  player.footY = playerGround();
   player.vy = 0;
   player.grounded = true;
+  player.jumpsUsed = 0;
   setState('idle', now);
 }
 
@@ -209,7 +235,7 @@ function hOverlap(a, b) {
 // Highest solid surface (smallest y) under the player's feet at column x
 const STEP_TOLERANCE = 14;
 function supportLevel(x, footY) {
-  let s = groundLine();
+  let s = playerGround();
   const pb = playerBoxAt(x, footY);
   for (const ob of obstacles) {
     if (ob.dead || ob.def.kind !== 'solid') continue;
@@ -272,6 +298,33 @@ function tryDefend(now) {
   if (!player.grounded) return;
   setState('defend', now);
 }
+// Nhảy edge-triggered: nhấn lần 2 khi đang trên không = double jump (cao gấp đôi)
+function tryJump(now) {
+  const cur = STATES[player.state];
+  if (cur.lock && !isEmote(player.state)) return;
+  if (player.grounded) {
+    player.vy = JUMP_V;
+    player.grounded = false;
+    player.jumpsUsed = 1;
+    setState('jumping', now);
+  } else if (player.jumpsUsed < MAX_JUMPS) {
+    player.vy = JUMP_V;
+    player.jumpsUsed++;
+    setState('idle', now);       // ép restart animation nhảy
+    setState('jumping', now);
+    pulses.push({ x: player.x, y: player.footY, r: 14, alpha: 0.8 });
+  }
+}
+// Chiêu tầm xa: animation loa phóng thanh bắn quả cầu năng lượng xoá vật cản
+function trySkill(now) {
+  const cur = STATES[player.state];
+  if (cur.lock && !isEmote(player.state)) return;
+  if (!player.grounded) return;
+  if (now < player.skillReadyAt) return;
+  player.skillReadyAt = now + SKILL_COOLDOWN;
+  player.castPending = true;
+  setState('special-speaker', now);
+}
 
 window.addEventListener('keydown', (e) => {
   if (['ArrowLeft', 'ArrowRight', 'ArrowUp', ' '].includes(e.key)) e.preventDefault();
@@ -285,6 +338,8 @@ window.addEventListener('keydown', (e) => {
 
   if (e.key === 'j' || e.key === 'J') tryAttack(now);
   if (e.key === 'k' || e.key === 'K') tryDefend(now);
+  if (e.key === 'l' || e.key === 'L') trySkill(now);
+  if ((e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') && !e.repeat) tryJump(now);
   const di = '1234567890'.indexOf(e.key);
   if (di >= 0 && EMOTES[di]) playEmote(EMOTES[di][1], now);
 });
@@ -318,9 +373,10 @@ function bindTapButton(id, fn) {
 }
 bindHoldButton('btnLeft', 'arrowleft');
 bindHoldButton('btnRight', 'arrowright');
-bindHoldButton('btnJump', ' ');
+bindTapButton('btnJump', tryJump);
 bindTapButton('btnAttack', tryAttack);
 bindTapButton('btnDefend', tryDefend);
+bindTapButton('btnSkill', trySkill);
 // Chạm vào canvas khi thắng cũng chơi lại được
 canvas.addEventListener('pointerdown', () => { if (gameWon) restart(performance.now()); });
 
@@ -340,6 +396,7 @@ function restart(now) {
   gameWon = false;
   player.hp = player.maxHp;
   player.x = 120;
+  player.skillReadyAt = 0;
   overlayEl.classList.remove('show');
   loadLevel(0, now);
   updateHUD();
@@ -388,7 +445,13 @@ function update(dt, now) {
         if (ev.type === 'hit') doAttackHit(ev.dir);
         if (ev.type === 'guard-on') player.guarding = true;
         if (ev.type === 'guard-off') player.guarding = false;
-        if (ev.type === 'speaker-pulse') pulses.push({ x: player.x, y: player.footY - 120, r: 30, alpha: 1 });
+        if (ev.type === 'speaker-pulse') {
+          pulses.push({ x: player.x, y: player.footY - 120, r: 30, alpha: 1 });
+          if (player.castPending) {
+            player.castPending = false;
+            projectiles.push({ x: player.x + player.facing * 70, y: player.footY - 100, dir: player.facing, dist: 0 });
+          }
+        }
       }
     }
   }
@@ -417,13 +480,6 @@ function update(dt, now) {
     if (keys['arrowright'] || keys['d']) { vx = player.speed * speedMult; player.facing = 1; }
   }
 
-  // Jump
-  if (!locked && (keys[' '] || keys['arrowup'] || keys['w']) && player.grounded) {
-    player.vy = JUMP_V;
-    player.grounded = false;
-    setState('jumping', now);
-  }
-
   // Horizontal move with solid blocking (can step onto tops within tolerance)
   if (vx !== 0) {
     const newX = player.x + vx * dt;
@@ -448,6 +504,7 @@ function update(dt, now) {
         newFoot = support;
         player.vy = 0;
         player.grounded = true;
+        player.jumpsUsed = 0;
         if (player.state === 'jumping') setState('idle', now);
       }
     }
@@ -476,6 +533,27 @@ function update(dt, now) {
     if (ob.dead || ob.def.kind !== 'damage') continue;
     if (overlap(pb2, obstacleBox(ob))) { takeDamage(now, ob.def.damage); break; }
   }
+
+  // Skill projectiles: bay thẳng, chạm vật cản nào là xoá vật cản đó
+  for (const p of projectiles) {
+    const step = SKILL_SPEED * dt * p.dir;
+    p.x += step;
+    p.dist += Math.abs(step);
+    // Hitbox quét từ quả cầu xuống mặt đất để trúng cả vật cản thấp
+    const shotBox = { x: p.x - 18, y: p.y - 20, w: 36, h: Math.max(40, groundLine() - p.y + 20) };
+    for (const ob of obstacles) {
+      if (ob.dead) continue;
+      if (overlap(shotBox, obstacleBox(ob))) {
+        ob.dead = true;
+        score += 10;
+        updateHUD();
+        pulses.push({ x: p.x, y: p.y, r: 20, alpha: 1 });
+        p.dist = Infinity;
+        break;
+      }
+    }
+  }
+  projectiles = projectiles.filter((p) => p.dist < SKILL_RANGE && p.x > -50 && p.x < WORLD_W + 50);
 
   // Level bounds & transition
   if (player.x > WORLD_W - 30) {
@@ -514,6 +592,27 @@ function render(now) {
     ctx.restore();
   }
 
+  // Skill projectiles
+  for (const p of projectiles) {
+    const sx = p.x - camX;
+    ctx.save();
+    const grad = ctx.createRadialGradient(sx, p.y, 2, sx, p.y, 16);
+    grad.addColorStop(0, '#ffffff');
+    grad.addColorStop(0.4, '#9ef01a');
+    grad.addColorStop(1, 'rgba(158, 240, 26, 0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(sx, p.y, 16, 0, Math.PI * 2);
+    ctx.fill();
+    // vệt sáng phía sau
+    ctx.globalAlpha = 0.35;
+    ctx.fillStyle = '#9ef01a';
+    ctx.beginPath();
+    ctx.ellipse(sx - p.dir * 22, p.y, 20, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
   // Speaker pulses
   for (const p of pulses) {
     ctx.save();
@@ -528,7 +627,7 @@ function render(now) {
 
   // Player sprite
   const st = STATES[player.state];
-  const elapsed = now - player.stateStart;
+  const elapsed = Math.max(0, now - player.stateStart);
   let frame = Math.floor(elapsed / st.dur);
   frame = st.loop ? frame % st.frames : Math.min(frame, st.frames - 1);
 
@@ -555,11 +654,13 @@ function render(now) {
 
 /* ---------- Main loop ---------- */
 let lastT = 0;
+const btnSkillEl = document.getElementById('btnSkill');
 function step(t) {
   const dt = Math.min(0.05, (t - lastT) / 1000);
   lastT = t;
   update(dt, t);
   render(t);
+  if (btnSkillEl) btnSkillEl.classList.toggle('cd', t < player.skillReadyAt);
 }
 function loop(t) {
   step(t);

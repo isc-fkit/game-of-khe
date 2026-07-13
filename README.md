@@ -14,11 +14,14 @@ python3 -m http.server 8321
 | Phím | Hành động |
 |---|---|
 | `←` `→` / `A` `D` | Di chuyển trái / phải |
-| `Space` / `↑` / `W` | Nhảy (có thể nhảy lên trên chướng ngại vật) |
-| `J` | Tấn công (phá được bụi gai, pha lê — +10 điểm) |
+| `Space` / `↑` / `W` | Nhảy — nhấn lần 2 khi đang trên không = **nhảy đôi** vượt vật cản cao |
+| `J` | Tấn công cận chiến (phá bụi gai, pha lê — +10 điểm) |
 | `K` | Phòng thủ (chặn sát thương trong lúc giơ khiên) |
+| `L` | **Tung chiêu** — bắn cầu năng lượng xoá vật cản từ xa (hồi chiêu 2,5s) |
 | `1–9`, `0` | Emote nhanh |
 | Click nút emoji | 14 emote: 😊 😂 😢 😠 😲 😨 😵 😝 📢 💃 🏆 😴 👋 ⏳ |
+
+Trên điện thoại: mở web, xoay ngang — có nút cảm ứng ◀ ▶ / Thủ / Chiêu / Đánh / Nhảy.
 
 ## Gameplay
 
